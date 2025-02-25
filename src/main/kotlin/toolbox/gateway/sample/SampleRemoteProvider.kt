@@ -6,6 +6,7 @@ import com.jetbrains.toolbox.api.core.ui.icons.SvgIcon
 import com.jetbrains.toolbox.api.remoteDev.ProviderVisibilityState
 import com.jetbrains.toolbox.api.remoteDev.RemoteEnvironmentConsumer
 import com.jetbrains.toolbox.api.remoteDev.RemoteProvider
+import com.jetbrains.toolbox.api.ui.components.UiPage
 import kotlinx.coroutines.*
 import kotlinx.serialization.json.Json
 //import kotlinx.serialization.json.okio.decodeFromBufferedSource
@@ -20,7 +21,7 @@ class SampleRemoteProvider(
     private val consumer: RemoteEnvironmentConsumer,
     coroutineScope: CoroutineScope,
     serviceLocator: ServiceLocator,
-) : RemoteProvider {
+) : RemoteProvider("Sample Provider") {
     private val logger = serviceLocator.getService(Logger::class.java)
 
     init {
@@ -64,13 +65,10 @@ class SampleRemoteProvider(
 
     override fun close() {}
 
-    override fun getName(): String = "Sample Provider"
-    override fun getSvgIcon(): SvgIcon {
-        return SvgIcon(this::class.java.getResourceAsStream("/icon.svg")?.readAllBytes() ?: byteArrayOf())
-    }
+    override val svgIcon: SvgIcon = SvgIcon(this::class.java.getResourceAsStream("/icon.svg")?.readAllBytes() ?: byteArrayOf())
 
-    override fun canCreateNewEnvironments(): Boolean = true
-    override fun isSingleEnvironment(): Boolean = false
+    override val canCreateNewEnvironments: Boolean = true
+    override val isSingleEnvironment: Boolean = false
 
     override fun setVisible(visibilityState: ProviderVisibilityState) {}
 
