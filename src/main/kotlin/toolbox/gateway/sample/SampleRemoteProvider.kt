@@ -42,9 +42,11 @@ class SampleRemoteProvider(
 
     init {
         scope.launch {
+            var counter = 0
             while (true) {
+                counter += 1
                 try {
-                    logger.debug("Updating remote environments for Sample Plugin")
+                    logger.debug("Updating remote environments for Sample Plugin #${counter}")
 //                    val response = httpClient.newCall(request).await()
 //                    val body = response.body ?: continue
                     @Language("json")
@@ -52,8 +54,8 @@ class SampleRemoteProvider(
                         { 
                             "environments": [
                                 { 
-                                    "id": "perfectly.normal.identifier",
-                                    "name": "My shiny new environment"
+                                    "id": "perfectly.normal.identifier.$counter",
+                                    "name": "My shiny #$counter new environment"
                                 }
                             ]
                         }

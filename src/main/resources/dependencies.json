@@ -1,17 +1,10 @@
 [
   {
     "name": "Toolbox App plugin API",
-    "version": "2.1.0.16946",
+    "version": "1.0.0",
     "url": "https://jetbrains.com/toolbox-app/",
     "license": "The Apache Software License, Version 2.0",
     "licenseUrl": "https://www.apache.org/licenses/LICENSE-2.0.txt"
-  },
-  {
-    "name": "com.squareup.okhttp3:okhttp",
-    "version": "4.10.0",
-    "url": "https://square.github.io/okhttp/",
-    "license": "The Apache Software License, Version 2.0",
-    "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt"
   },
   {
     "name": "Kotlin",
@@ -33,12 +26,5 @@
     "url": "https://github.com/Kotlin/kotlinx.serialization/",
     "license": "The Apache License, Version 2.0",
     "licenseUrl": "https://github.com/Kotlin/kotlinx.serialization/blob/master/LICENSE.txt"
-  },
-  {
-    "name": "org.slf4j:slf4j-api",
-    "version": "2.0.3",
-    "url": "http://www.slf4j.org",
-    "license": "MIT License",
-    "licenseUrl": "http://www.opensource.org/licenses/mit-license.php"
   }
 ]

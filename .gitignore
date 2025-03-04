@@ -5,3 +5,5 @@ jvm/
 
 # IntelliJ IDEA
 .idea
+
+toolbox-plugin.properties

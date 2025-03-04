@@ -3,6 +3,8 @@
 ## Quick Installation
 To load the plugin into Toolbox App, run: `./gradlew build copyPlugin`
 
+> **Important**: Do not include dependencies that are already present in the Toolbox App to avoid resolution conflicts.
+
 ## Manual Installation
 Place plugin files in the appropriate directory for your operating system:
 
@@ -17,5 +19,11 @@ Copy the following files:
 - `extensions.json`
 - `icon.svg`
 
+### Localization
+To generate localization files:
 
-> **Important**: Do not include dependencies that are already present in the Toolbox App to avoid resolution conflicts.
+1. Run the gettext gradle task:
+   `./gradlew gettext`
+2. The generated POT file will be placed in the `resources/localization` directory.
+3. Create translation files (*.po) for each target language based on the POT template
+4. Place the translated files in the `resources/localization` subfolder before building the plugin

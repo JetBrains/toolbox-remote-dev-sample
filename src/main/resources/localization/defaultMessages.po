@@ -1,0 +1,33 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
+#, fuzzy
+msgid ""
+msgstr "Project-Id-Version: PACKAGE VERSION\nReport-Msgid-Bugs-To: \n\nPO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\nLast-Translator: FULL NAME <EMAIL@ADDRESS>\nLanguage-Team: LANGUAGE <LL@li.org>\nLanguage: \nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: 8bit\nPlural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+
+#: src/main/kotlin/toolbox/gateway/sample/SampleRemoteProvider.kt:95
+msgid "This is UI example"
+msgstr ""
+
+#: src/main/kotlin/toolbox/gateway/sample/SampleRemoteProvider.kt:96
+msgid "Warmup"
+msgstr ""
+
+#: src/main/kotlin/toolbox/gateway/sample/SampleRemoteProvider.kt:97
+msgid "Name"
+msgstr ""
+
+#: src/main/kotlin/toolbox/gateway/sample/SampleRemoteProvider.kt:106
+msgid "Sample plugin login"
+msgstr ""
+
+#: src/main/kotlin/toolbox/gateway/sample/SampleRemoteProvider.kt:111
+msgid "Just click that button to pretend you logged in"
+msgstr ""
+
+#: src/main/kotlin/toolbox/gateway/sample/SampleRemoteProvider.kt:126
+msgid "Login"
+msgstr ""

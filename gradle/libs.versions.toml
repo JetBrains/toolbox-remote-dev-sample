@@ -4,9 +4,10 @@ kotlin = "2.0.10"
 coroutines = "1.7.3"
 serialization = "1.5.0"
 dependency-license-report = "2.5"
-marketplace-client = "2.0.38"
+marketplace-client = "2.0.45"
 gradle-wrapper = "0.14.0"
 gettext = "0.7.0"
+plugin-structure = "3.298"
 
 [libraries]
 toolbox-core-api = { module = "com.jetbrains.toolbox:core-api", version.ref = "toolbox-plugin-api" }
@@ -15,6 +16,7 @@ toolbox-remote-dev-api = { module = "com.jetbrains.toolbox:remote-dev-api", vers
 coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
 serialization-core = { module = "org.jetbrains.kotlinx:kotlinx-serialization-core", version.ref = "serialization" }
 serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "serialization" }
+plugin-structure = { module = "org.jetbrains.intellij.plugins:structure-toolbox", version.ref = "plugin-structure" }
 
 marketplace-client = { module = "org.jetbrains.intellij:plugin-repository-rest-client", version.ref = "marketplace-client" }
 
