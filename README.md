@@ -24,6 +24,6 @@ To generate localization files:
 
 1. Run the gettext gradle task:
    `./gradlew gettext`
-2. The generated POT file will be placed in the `resources/localization` directory.
+2. The generated `messages.pot` file will be placed in the `resources/` directory.
 3. Create translation files (*.po) for each target language based on the POT template
-4. Place the translated files in the `resources/localization` subfolder before building the plugin
+4. Place the localization files in the `resources/localization` subfolder before building the plugin, named like `<languageTag>.po`
