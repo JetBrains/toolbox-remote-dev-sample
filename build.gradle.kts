@@ -12,6 +12,7 @@ plugins {
     `java-library`
     alias(libs.plugins.dependency.license.report)
     alias(libs.plugins.gradle.wrapper)
+    alias(libs.plugins.gettext)
 }
 
 buildscript {
@@ -37,8 +38,8 @@ jvmWrapper {
 
 dependencies {
     compileOnly(libs.bundles.toolbox.plugin.api)
-    implementation(libs.bundles.serialization)
-    implementation(libs.coroutines.core)
+    compileOnly(libs.bundles.serialization)
+    compileOnly(libs.coroutines.core)
 }
 
 licenseReport {
@@ -54,6 +55,8 @@ tasks.compileKotlin {
 
 val pluginId = "com.jetbrains.toolbox.sample"
 val pluginVersion = "0.0.1"
+
+val resourcesDir = File(rootProject.projectDir, "resources")
 
 val assemblePlugin by tasks.registering(Jar::class) {
     archiveBaseName.set(pluginId)
@@ -86,6 +89,7 @@ val copyPlugin by tasks.creating(Sync::class.java) {
         include("extension.json")
         include("dependencies.json")
         include("icon.svg")
+        include("localization/**")
     }
 
     into(targetDir)
@@ -103,6 +107,7 @@ val pluginZip by tasks.creating(Zip::class) {
     from("src/main/resources") {
         include("icon.svg")
         rename("icon.svg", "pluginIcon.svg")
+        include("localization/**")
     }
     archiveBaseName.set("$pluginId-$pluginVersion")
 }
@@ -119,4 +124,9 @@ val uploadPlugin by tasks.creating {
         // subsequent updates
         instance.uploader.upload(pluginId, pluginZip.outputs.files.singleFile)
     }
+}
+
+gettext {
+    potFile = File(resourcesDir,"messages.pot")
+    keywords = listOf("ptrc:1c,2", "ptrl")
 }

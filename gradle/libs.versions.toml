@@ -1,12 +1,12 @@
 [versions]
-toolbox-plugin-api = "0.7.2.6.0.38311"
+toolbox-plugin-api = "1.0.38881"
 kotlin = "2.0.10"
 coroutines = "1.7.3"
 serialization = "1.5.0"
 dependency-license-report = "2.5"
 marketplace-client = "2.0.38"
 gradle-wrapper = "0.14.0"
-
+gettext = "0.7.0"
 
 [libraries]
 toolbox-core-api = { module = "com.jetbrains.toolbox:core-api", version.ref = "toolbox-plugin-api" }
@@ -27,3 +27,4 @@ kotlin = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 dependency-license-report = { id = "com.github.jk1.dependency-license-report", version.ref = "dependency-license-report" }
 gradle-wrapper = { id = "me.filippov.gradle.jvm.wrapper", version.ref = "gradle-wrapper" }
+gettext = { id = "name.kropp.kotlinx-gettext", version.ref = "gettext" }
