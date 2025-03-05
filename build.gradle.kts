@@ -203,19 +203,20 @@ val uploadPlugin by tasks.registering {
         )
 
         // first upload
-        instance.uploader.uploadNewPlugin(
-            pluginZip.get().outputs.files.singleFile,
-            listOf("toolbox", "gateway"),
-            LicenseUrl.APACHE_2_0,
-            ProductFamily.TOOLBOX,
-            extension.meta.vendor,
-            isHidden = true
-        )
+//        instance.uploader.uploadNewPlugin(
+//            pluginZip.get().outputs.files.singleFile,
+//            listOf("toolbox", "gateway"),
+//            LicenseUrl.APACHE_2_0,
+//            ProductFamily.TOOLBOX,
+//            extension.meta.vendor,
+//            isHidden = true
+//        )
 
-//        // subsequent updates
-//        instance.uploader.upload(
-//            pluginId,
-//            pluginZip.outputs.files.singleFile
+        // subsequent updates
+//        instance.uploader.uploadUpdateByXmlIdAndFamily(
+//            extension.id,
+//            ProductFamily.TOOLBOX,
+//            pluginZip.get().outputs.files.singleFile,
 //        )
     }
 }
