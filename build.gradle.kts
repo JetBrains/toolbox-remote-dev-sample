@@ -97,9 +97,9 @@ fun generateExtensionJson(extensionJson: ExtensionJson, destinationFile: Path) {
             url = extensionJson.meta.url,
         )
     )
-    val extensionJson = jacksonObjectMapper().writeValueAsString(descriptor)
+    val extensionJsonString = jacksonObjectMapper().writeValueAsString(descriptor)
     destinationFile.parent.createDirectories()
-    destinationFile.writeText(extensionJson)
+    destinationFile.writeText(extensionJsonString)
 }
 
 // endregion
@@ -171,6 +171,7 @@ val pluginZip by tasks.registering(Zip::class) {
         include("icon.svg")
         rename("icon.svg", "pluginIcon.svg")
     }
+    from(tasks.jar)
     archiveBaseName.set("${extension.id}-${extension.version}")
 }
 
@@ -202,22 +203,25 @@ val uploadPlugin by tasks.registering {
             pluginMarketplaceToken
         )
 
-        // first upload
+        // !!! first upload !!!
 //        instance.uploader.uploadNewPlugin(
-//            pluginZip.get().outputs.files.singleFile,
-//            listOf("toolbox", "gateway"),
-//            LicenseUrl.APACHE_2_0,
-//            ProductFamily.TOOLBOX,
-//            extension.meta.vendor,
+//            pluginZip.get().outputs.files.singleFile,  // do not change
+//            listOf("toolbox", "gateway"), // do not change
+//            LicenseUrl.APACHE_2_0, // choose wisely
+//            ProductFamily.TOOLBOX, // do not change
+//            extension.meta.vendor,  // do not change
 //            isHidden = true
 //        )
 
-        // subsequent updates
-//        instance.uploader.uploadUpdateByXmlIdAndFamily(
-//            extension.id,
-//            ProductFamily.TOOLBOX,
-//            pluginZip.get().outputs.files.singleFile,
-//        )
+        // !!! subsequent updates !!!
+        instance.uploader.uploadUpdateByXmlIdAndFamily(
+            extension.id,  // do not change
+            ProductFamily.TOOLBOX,  // do not change
+            pluginZip.get().outputs.files.singleFile,  // do not change
+            null,  // do not change. Channels will be available later
+            "Bug fixes and improvements",
+            true
+        )
     }
 }
 
