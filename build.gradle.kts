@@ -178,25 +178,25 @@ val pluginZip by tasks.registering(Zip::class) {
 
 val toolboxPluginPropertiesFile = file("toolbox-plugin.properties")
 
-val pluginMarketplaceToken: String = if (toolboxPluginPropertiesFile.exists()) {
-    val token = Properties().apply { load(toolboxPluginPropertiesFile.inputStream()) }.getProperty("pluginMarketplaceToken", null)
-    if (token == null) {
-        error("pluginMarketplaceToken does not exist in ${toolboxPluginPropertiesFile.absolutePath}.\n" +
-            "Please set pluginMarketplaceToken property to a token obtained from the marketplace.")
-    }
-    token
-} else {
-    error("toolbox-plugin.properties does not exist at ${toolboxPluginPropertiesFile.absolutePath}.\n" +
-        "Please create the file and set pluginMarketplaceToken property to a token obtained from the marketplace.")
-}
-
-println("Plugin Marketplace Token: ${pluginMarketplaceToken.take(5)}*****")
-
 // Work in progress. The public version of Marketplace will not accept the plugin yet
 val uploadPlugin by tasks.registering {
     dependsOn(pluginZip)
 
     doLast {
+        val pluginMarketplaceToken: String = if (toolboxPluginPropertiesFile.exists()) {
+            val token = Properties().apply { load(toolboxPluginPropertiesFile.inputStream()) }.getProperty("pluginMarketplaceToken", null)
+            if (token == null) {
+                error("pluginMarketplaceToken does not exist in ${toolboxPluginPropertiesFile.absolutePath}.\n" +
+                    "Please set pluginMarketplaceToken property to a token obtained from the marketplace.")
+            }
+            token
+        } else {
+            error("toolbox-plugin.properties does not exist at ${toolboxPluginPropertiesFile.absolutePath}.\n" +
+                "Please create the file and set pluginMarketplaceToken property to a token obtained from the marketplace.")
+        }
+        println("Plugin Marketplace Token: ${pluginMarketplaceToken.take(5)}*****")
+
+
         val instance = PluginRepositoryFactory.
         create(
             "https://plugins.jetbrains.com",
