@@ -2,8 +2,13 @@
 .gradle
 build
 jvm/
+plugin/build
+plugin/.gradle
+build-logic/build
+build-logic/.gradle
 
 # IntelliJ IDEA
 .idea
+.kotlin
 
 toolbox-plugin.properties
