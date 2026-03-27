@@ -3,6 +3,7 @@ plugins {
   `kotlin-dsl`
   id("com.jetbrains.toolbox.packaging")
   id("com.jetbrains.toolbox.install")
+  id("com.jetbrains.toolbox.publish")
   `java-library`
 }
 
