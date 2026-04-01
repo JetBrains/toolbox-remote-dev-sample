@@ -10,6 +10,8 @@ plugins {
 group = "com.jetbrains.toolbox.sample"
 version = "1.1.0"
 
+extra["vendor"] = "JetBrains"
+
 kotlin {
   jvmToolchain(21)
 }

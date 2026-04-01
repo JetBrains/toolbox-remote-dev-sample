@@ -11,6 +11,7 @@ import org.gradle.api.tasks.TaskAction
 import org.gradle.api.tasks.bundling.Zip
 import org.gradle.work.DisableCachingByDefault
 import org.jetbrains.intellij.pluginRepository.PluginRepositoryFactory
+import org.jetbrains.intellij.pluginRepository.model.LicenseUrl
 import org.jetbrains.intellij.pluginRepository.model.ProductFamily
 
 /**
@@ -21,9 +22,7 @@ class PublishToolboxPlugin : Plugin<Project> {
   override fun apply(target: Project) {
     val packageTask = target.tasks.register("packagePlugin", Zip::class.java) {
       dependsOn(target.tasks.named("assemble"))
-      from(target.layout.buildDirectory.file("generated/extension.json")) {
-        into("${target.group}")
-      }
+      from(target.layout.buildDirectory.file("generated/extension.json"))
       from(target.file("src/main/resources")) {
         include("dependencies.json")
         include("icon.svg")
@@ -38,6 +37,7 @@ class PublishToolboxPlugin : Plugin<Project> {
       dependsOn(packageTask)
       extensionId.set(target.group.toString())
       pluginZipFile.set(packageTask.flatMap { it.archiveFile })
+      vendor.set(target.extensions.extraProperties["vendor"].toString())
     }
   }
 
@@ -56,34 +56,50 @@ class PublishToolboxPlugin : Plugin<Project> {
     @get:InputFile
     abstract val pluginZipFile: RegularFileProperty
 
+    @get:Input
+    abstract val vendor: Property<String>
+
     @TaskAction
     fun publish() {
-      val token = System.getenv("JETBRAINS_MARKETPLACE_PUBLISH_TOKEN")
-      if (token.isNullOrBlank()) {
+      val jbMarketplaceToken: String? = System.getenv("JETBRAINS_MARKETPLACE_PUBLISH_TOKEN")
+      if (jbMarketplaceToken.isNullOrBlank()) {
         error(
-          "Environment variable `JETBRAINS_MARKETPLACE_PUBLISH_TOKEN` is not set. " +
-            "Please obtain a token from https://plugins.jetbrains.com and set it."
+          "Environment variable `JETBRAINS_MARKETPLACE_PUBLISH_TOKEN` is not set. " + "Please obtain a token from https://plugins.jetbrains.com and set it."
         )
       }
 
       println("Publishing plugin ${extensionId.get()} to JetBrains Marketplace...")
-      println("Token prefix: ${token.take(5)}*****")
+      println("Token prefix: ${jbMarketplaceToken.take(5)}*****")
 
       val instance = PluginRepositoryFactory.create(
-        "https://plugins.jetbrains.com",
-        token
+        "https://plugins.jetbrains.com", jbMarketplaceToken
       )
 
-      instance.uploader.uploadUpdateByXmlIdAndFamily(
-        extensionId.get(),
-        ProductFamily.TOOLBOX,
-        pluginZipFile.get().asFile,
-        null, // channel – not yet supported for Toolbox plugins.
-        "Bug fixes and improvements", // please make sure to update version notes here.
-        false
+      val existingPlugin = instance.pluginManager.getPluginByXmlId(
+        extensionId.get(), ProductFamily.TOOLBOX
       )
 
-      println("Plugin published successfully!")
-    }
+      if (existingPlugin != null) {
+        instance.uploader.uploadUpdateByXmlIdAndFamily(
+          extensionId.get(),
+          ProductFamily.TOOLBOX,
+          pluginZipFile.get().asFile,
+          null, // channel – not yet supported for Toolbox plugins.
+          "Bug fixes and improvements", // please make sure to update version notes here.
+          false
+        )
+      } else {
+        println("Plugin not found on Marketplace. Uploading as new plugin...")
+        instance.uploader.uploadNewPlugin(
+          pluginZipFile.get().asFile,  // do not change
+          listOf("toolbox", "gateway"), // do not change
+          LicenseUrl.APACHE_2_0, // choose wisely
+          ProductFamily.TOOLBOX, // do not change
+          vendor = vendor.get(), // do not change
+          isHidden = true,
+        )
+      }
+    println("Plugin published successfully!")
   }
+}
 }
