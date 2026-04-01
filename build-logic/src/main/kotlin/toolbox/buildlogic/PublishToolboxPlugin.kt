@@ -21,12 +21,16 @@ class PublishToolboxPlugin : Plugin<Project> {
   override fun apply(target: Project) {
     val packageTask = target.tasks.register("packagePlugin", Zip::class.java) {
       dependsOn(target.tasks.named("assemble"))
-      archiveBaseName.set(target.group.toString())
-      from(target.tasks.named("jar"))
-      from(target.layout.buildDirectory.file("generated/extension.json"))
+      from(target.layout.buildDirectory.file("generated/extension.json")) {
+        into("${target.group}")
+      }
       from(target.file("src/main/resources")) {
         include("dependencies.json")
         include("icon.svg")
+        into("${target.group}")
+      }
+      from(target.tasks.named("jar")) {
+        into("${target.group}/lib")
       }
     }
 
