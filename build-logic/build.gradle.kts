@@ -16,6 +16,7 @@ repositories {
 dependencies {
   implementation(libs.plugin.structure)
   implementation(libs.jackson.kotlin)
+  implementation(libs.marketplace.client)
 }
 
 gradlePlugin {
@@ -31,6 +32,12 @@ gradlePlugin {
       implementationClass = "com.jetbrains.toolbox.buildlogic.InstallToolboxPlugin"
       displayName = "Install Toolbox Plugin"
       description = "Installs the plugin into the local Toolbox directory"
+    }
+    create("toolboxPublish") {
+      id = "com.jetbrains.toolbox.publish"
+      implementationClass = "com.jetbrains.toolbox.buildlogic.PublishToolboxPlugin"
+      displayName = "Publish Toolbox Plugin"
+      description = "Packages and publishes a JetBrains Toolbox plugin to the JetBrains Marketplace"
     }
   }
 }

@@ -71,9 +71,9 @@ class ToolboxGenerateJsonExtension : Plugin<Project> {
     val gen = target.tasks.register("generateExtensionJson", GenerateExtensionJsonTask::class.java) {
       extensionId.set(target.group.toString())
       extensionVersion.set(target.version.toString())
-      metaName.set("Toolbox Sample Plugin")
+      metaName.set("Toolbox Sample Plugin Template")
       metaDescription.set("Sample Plugin for JetBrains Toolbox")
-      metaVendor.set("JetBrains")
+      metaVendor.set(target.extensions.extraProperties["vendor"].toString())
       metaUrl.set("https://www.jetbrains.com/toolbox/")
       destinationFile.set(extensionJsonFile)
     }

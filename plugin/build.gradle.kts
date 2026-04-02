@@ -3,11 +3,14 @@ plugins {
   `kotlin-dsl`
   id("com.jetbrains.toolbox.packaging")
   id("com.jetbrains.toolbox.install")
+  id("com.jetbrains.toolbox.publish")
   `java-library`
 }
 
 group = "com.jetbrains.toolbox.sample"
 version = "1.1.0"
+
+extra["vendor"] = "JetBrains"
 
 kotlin {
   jvmToolchain(21)
