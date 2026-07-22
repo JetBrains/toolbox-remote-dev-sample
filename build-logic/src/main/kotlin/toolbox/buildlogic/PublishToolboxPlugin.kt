@@ -28,9 +28,7 @@ class PublishToolboxPlugin : Plugin<Project> {
         include("icon.svg")
         into("${target.group}")
       }
-      from(target.tasks.named("jar")) {
-        into("${target.group}/lib")
-      }
+      from(target.tasks.named("jar"))
     }
 
     target.tasks.register("publishPlugin", PublishTask::class.java) {
